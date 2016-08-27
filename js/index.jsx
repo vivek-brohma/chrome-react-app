@@ -1,11 +1,11 @@
-var React  = require('react');
+import React from 'react'
 
-var Index = React.createClass({
-	render: function(){
+export default class MainContent extends React.Component {
+	render() {
 		return (
-			<div className="main-wrapper">HOME</div>
+			<div className="main-content">
+				Foobar JS!
+			</div>
 		);
 	}
-});
-
-module.exports = Index;
+}
