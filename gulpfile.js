@@ -32,7 +32,7 @@ gulp.task('browserify', function(){
 	if(!argv.prod) gulp.watch(statics, ['init']);
 
 	return browserify({debug: !argv.prod})
-		.transform(reactify)
+		.transform("babelify", {presets: ["es2015", "react"]})
 		.add('js/app.jsx')
 		.bundle()
 		.pipe(source("app.js"))
@@ -44,3 +44,5 @@ gulp.task('browserify', function(){
 gulp.task('init', ['statics']);
 
 gulp.task('build', ['browserify', 'style']);
+
+gulp.task('default', ['build']);
