@@ -1,11 +1,14 @@
 # Remind Me Later #
 
+Boiler plate for starting up for Chrome app with react
 
-### What is this repository for? ###
+## Update the basic info in following files ##
 
-Source code for "Remind Me Later" chrome app
+* `index.html`: **App Name**
+* `manifest.json`: **App Name**, **App description** and **App short name**
+* `package.json`: **name**
 
-### Getting started ###
+## Getting started ##
 
 Run the following command
 
