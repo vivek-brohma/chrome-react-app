@@ -10,7 +10,7 @@ var copy = require('gulp-copy')
 	,reactify = require('reactify')
 	,source = require("vinyl-source-stream");
 
-var argv = require('yargs').argv
+var isProd = (process.env.NODE_ENV == 'production')
 	,statics = ['index.html', 'background.js', 'manifest.json', 'images/*', 'fonts/*'];
 
 gulp.task('statics', function(){
@@ -19,7 +19,7 @@ gulp.task('statics', function(){
 });
 
 gulp.task('style', function(){
-	if(!argv.prod) gulp.watch(['less/**'], ['style']);
+	if(!isProd) gulp.watch(['less/**'], ['style']);
 
 	return gulp.src('less/app.less')
 		.pipe(gulpLess())
@@ -28,16 +28,16 @@ gulp.task('style', function(){
 });
 
 gulp.task('browserify', function(){
-	if(!argv.prod) gulp.watch(['js/**', 'config/**'], ['browserify']);
-	if(!argv.prod) gulp.watch(statics, ['init']);
+	if(!isProd) gulp.watch(['js/**', 'config/**'], ['browserify']);
+	if(!isProd) gulp.watch(statics, ['init']);
 
-	return browserify({debug: !argv.prod})
+	return browserify({debug: !isProd})
 		.transform("babelify", {presets: ["es2015", "react"]})
 		.add('js/app.jsx')
 		.bundle()
 		.pipe(source("app.js"))
 		.pipe(buffer())
-		.pipe(gulpIf(argv.prod, gulpUglify()))
+		.pipe(gulpIf(isProd, gulpUglify()))
 		.pipe(gulp.dest('./build/js'));
 });
 
